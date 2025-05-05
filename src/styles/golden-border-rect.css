@@ -1,0 +1,58 @@
+.golden-border-rect-container {
+    
+    box-sizing: border-box;
+  }
+  
+  .golden-border-rect-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ffd700 0%, #e812c0 25%, #f0c330 50%, #ffd700 75%, #0e88e5 100%);
+    background-size: 200% 200%;
+    animation: gradientAnimation var(--animation-duration, 3s) linear infinite;
+    clip-path: polygon(
+      0 0,
+      calc(var(--corner-size, 15px) + 30px) 0,
+      calc(var(--corner-size, 15px) + 50px) var(--corner-size, 15px),
+      calc(100% - var(--corner-size, 15px) - 50px) var(--corner-size, 15px),
+      calc(100% - var(--corner-size, 15px) - 30px) 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+    z-index: 1;
+  }
+  
+  .golden-content-rect {
+    position: absolute;
+    top: var(--border-width, 2px);
+    left: var(--border-width, 2px);
+    width: calc(100% - var(--border-width, 2px) * 2);
+    height: calc(100% - var(--border-width, 2px) * 2);
+    clip-path: polygon(
+      0 0,
+      calc(var(--corner-size, 15px) + 30px) 0,
+      calc(var(--corner-size, 15px) + 50px) var(--corner-size, 15px),
+      calc(100% - var(--corner-size, 15px) - 50px) var(--corner-size, 15px),
+      calc(100% - var(--corner-size, 15px) - 30px) 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+    z-index: 2;
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  

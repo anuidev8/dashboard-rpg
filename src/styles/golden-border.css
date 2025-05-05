@@ -1,0 +1,83 @@
+/* Container for the clipped border */
+.golden-border-clip-container {
+    position: relative;
+    --border-width: 10px;
+    --corner-size: 20px;
+    --clip-path-inset: calc(var(--corner-size) * 2);
+  }
+  
+  /* Border layer with gradient and animation */
+  .golden-border-clip-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #ffd700, #f8d26a, #ededed, #ffd700, #ffc107, #ffffff, #fb11ff);
+    background-size: 200% 200%;
+    animation: gradientShift var(--animation-duration, 3s) linear infinite;
+    /* Clip path for the border with triangular corners */
+    clip-path: polygon(
+      /* Outer shape */
+      0 var(--corner-size) /* Top-left start */,
+      var(--corner-size) 0 /* Top-left corner */,
+      calc(100% - var(--corner-size)) 0 /* Top-right start */,
+      100% var(--corner-size) /* Top-right corner */,
+      100% calc(100% - var(--corner-size)) /* Bottom-right start */,
+      calc(100% - var(--corner-size)) 100% /* Bottom-right corner */,
+      var(--corner-size) 100% /* Bottom-left start */,
+      0 calc(100% - var(--corner-size)) /* Bottom-left corner */,
+      0 var(--corner-size) /* Back to start */,
+      /* Inner shape (cutout) */
+      var(--border-width) calc(var(--corner-size) + var(--border-width)) /* Inner top-left start */,
+      calc(var(--corner-size) + var(--border-width)) var(--border-width) /* Inner top-left corner */,
+      calc(100% - var(--corner-size) - var(--border-width)) var(--border-width) /* Inner top-right start */,
+      calc(100% - var(--border-width)) calc(var(--corner-size) + var(--border-width)) /* Inner top-right corner */,
+      calc(100% - var(--border-width)) calc(100% - var(--corner-size) - var(--border-width)) /* Inner bottom-right start */,
+      calc(100% - var(--corner-size) - var(--border-width)) calc(100% - var(--border-width)) /* Inner bottom-right corner */,
+      calc(var(--corner-size) + var(--border-width)) calc(100% - var(--border-width)) /* Inner bottom-left start */,
+      var(--border-width) calc(100% - var(--corner-size) - var(--border-width)) /* Inner bottom-left corner */,
+      var(--border-width) calc(var(--corner-size) + var(--border-width)) /* Back to inner start */
+    );
+  }
+  
+  /* Content container */
+  .golden-content-clip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: var(--border-width);
+    /* Clip path for the content with triangular corners */
+    clip-path: polygon(
+      var(--corner-size) var(--border-width) /* Top-left start */,
+      calc(var(--corner-size) + var(--border-width)) var(--border-width) /* Top-left corner */,
+      calc(100% - var(--corner-size) - var(--border-width)) var(--border-width) /* Top-right start */,
+      calc(100% - var(--border-width)) var(--corner-size) /* Top-right corner */,
+      calc(100% - var(--border-width)) calc(100% - var(--corner-size)) /* Bottom-right start */,
+      calc(100% - var(--corner-size)) calc(100% - var(--border-width)) /* Bottom-right corner */,
+      var(--corner-size) calc(100% - var(--border-width)) /* Bottom-left start */,
+      var(--border-width) calc(100% - var(--corner-size)) /* Bottom-left corner */,
+      var(--border-width) var(--corner-size) /* Back to start */,
+      var(--corner-size) var(--border-width) /* Close the path */
+    );
+  }
+  
+  /* Animation for the gradient */
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 50% 0%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    75% {
+      background-position: 50% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
